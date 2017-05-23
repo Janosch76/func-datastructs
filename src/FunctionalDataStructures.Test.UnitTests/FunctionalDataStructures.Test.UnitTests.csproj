@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Heap\LazyBinomialHeapTests.cs" />
+    <Compile Include="Heap\SplayHeapTests.cs" />
     <Compile Include="Heap\LeftistHeapTests.cs" />
     <Compile Include="RandomAccessList\BinaryRandomAccessListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
