@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{E219A8A1-54D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalDataStructures", "src\FunctionalDataStructures\FunctionalDataStructures.csproj", "{F36B6382-0E81-43B1-BE76-4643251058D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalDataStructures.Test.Application", "src\FunctionalDataStructures.Test.Application\FunctionalDataStructures.Test.Application.csproj", "{7B3D66FA-626F-4BBA-A2FD-FBB99337E4B7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalDataStructures.Test.UnitTests", "src\FunctionalDataStructures.Test.UnitTests\FunctionalDataStructures.Test.UnitTests.csproj", "{64CF3C81-1626-4203-98FE-6F8D99046878}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{4EFE3891-D658-4CE7-949C-E83C869FB670}"
@@ -25,10 +23,6 @@ Global
 		{F36B6382-0E81-43B1-BE76-4643251058D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F36B6382-0E81-43B1-BE76-4643251058D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F36B6382-0E81-43B1-BE76-4643251058D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B3D66FA-626F-4BBA-A2FD-FBB99337E4B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B3D66FA-626F-4BBA-A2FD-FBB99337E4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B3D66FA-626F-4BBA-A2FD-FBB99337E4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B3D66FA-626F-4BBA-A2FD-FBB99337E4B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64CF3C81-1626-4203-98FE-6F8D99046878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64CF3C81-1626-4203-98FE-6F8D99046878}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CF3C81-1626-4203-98FE-6F8D99046878}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,7 +33,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F36B6382-0E81-43B1-BE76-4643251058D2} = {65C3CC11-88B7-4A66-B59A-EB4148272247}
-		{7B3D66FA-626F-4BBA-A2FD-FBB99337E4B7} = {65C3CC11-88B7-4A66-B59A-EB4148272247}
 		{64CF3C81-1626-4203-98FE-6F8D99046878} = {65C3CC11-88B7-4A66-B59A-EB4148272247}
 	EndGlobalSection
 EndGlobal

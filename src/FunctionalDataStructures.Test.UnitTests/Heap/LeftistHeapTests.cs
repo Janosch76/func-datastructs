@@ -68,7 +68,7 @@
         {
             var empty = LeftistHeap<int>.Empty;
 
-            AssertThrows<Exception>(() =>
+            AssertThrows<EmptyCollectionException>(() =>
                 empty.FindMin());
         }
 
@@ -126,7 +126,7 @@
         {
             var empty = LeftistHeap<int>.Empty;
 
-            AssertThrows<Exception>(() =>
+            AssertThrows<EmptyCollectionException>(() =>
                 empty.DeleteMin());
         }
 

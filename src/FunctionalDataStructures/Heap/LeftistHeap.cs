@@ -9,29 +9,76 @@
     public abstract class LeftistHeap<T> : IHeap<LeftistHeap<T>, T>
         where T : IComparable<T>
     {
+        /// <summary>
+        /// The empty heap.
+        /// </summary>
         public static readonly LeftistHeap<T> Empty = new Leaf();
 
-        public int Count { get; protected set; }
-
-        protected int Rank;
-
+        /// <summary>
+        /// Prevents a default instance of the <see cref="LeftistHeap{T}"/> class from being created.
+        /// </summary>
         private LeftistHeap()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the number of elements in the heap.
+        /// </summary>
+        public int Count { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the rank of this instance.
+        /// </summary>
+        protected int Rank { get; set; }
+
+        /// <summary>
+        /// Determines whether this instance is empty.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        /// </returns>
         public abstract bool IsEmpty();
 
+        /// <summary>
+        /// Inserts the specified element into the heap.
+        /// </summary>
+        /// <param name="elem">The element to insert.</param>
+        /// <returns>
+        /// The updated heap.
+        /// </returns>
         public LeftistHeap<T> Insert(T elem)
         {
             return Merge(new Node(elem));
         }
 
+        /// <summary>
+        /// Merges the heap with a specified heap.
+        /// </summary>
+        /// <param name="heap">The heap to merge with the current instance.</param>
+        /// <returns>
+        /// The merged heap.
+        /// </returns>
         public abstract LeftistHeap<T> Merge(LeftistHeap<T> heap);
 
+        /// <summary>
+        /// Finds the minimum element in the heap.
+        /// </summary>
+        /// <returns>
+        /// The minimu element.
+        /// </returns>
         public abstract T FindMin();
 
+        /// <summary>
+        /// Deletes the minimum element from the heap.
+        /// </summary>
+        /// <returns>
+        /// The updated heap.
+        /// </returns>
         public abstract LeftistHeap<T> DeleteMin();
 
+        /// <summary>
+        /// Represents a leaf node (empty heap)
+        /// </summary>
         private class Leaf : LeftistHeap<T>
         {
             public override bool IsEmpty()
@@ -46,15 +93,18 @@
 
             public override T FindMin()
             {
-                throw new Exception("Empty");
+                throw new EmptyCollectionException();
             }
 
             public override LeftistHeap<T> DeleteMin()
             {
-                throw new Exception("Empty");
+                throw new EmptyCollectionException();
             }
         }
 
+        /// <summary>
+        /// Represents an inner node (non-empty sub heap)
+        /// </summary>
         private class Node : LeftistHeap<T>
         {
             private readonly T elem;

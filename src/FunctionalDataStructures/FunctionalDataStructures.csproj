@@ -37,6 +37,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmptyCollectionException.cs" />
     <Compile Include="Heap\IHeap.cs" />
     <Compile Include="Heap\LazyBinomialHeap.cs" />
     <Compile Include="Heap\LeftistHeap.cs" />

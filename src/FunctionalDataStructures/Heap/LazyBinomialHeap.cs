@@ -1,67 +1,110 @@
 ﻿namespace FunctionalDataStructures.Heap
 {
     using System;
-    using FunctionalDataStructures.Utils;
     using FunctionalDataStructures.List;
     using FunctionalDataStructures.RandomAccessList;
+    using FunctionalDataStructures.Utils;
 
     /// <summary>
     /// Binomial heaps with lazy evaluation of heap list
     /// from Chris Okasaki's book, p.70 ff
     /// </summary>
-    /// <typeparam name="T">element type</typeparam>
+    /// <typeparam name="T">The element type</typeparam>
     public class LazyBinomialHeap<T> : IHeap<LazyBinomialHeap<T>, T>
         where T : IComparable<T>
     {
-        private ISusp<IList<Tree>> heap;
-        private int size;
-
-        private LazyBinomialHeap(ISusp<IList<Tree>> heap, int size)
-        {
-            this.heap = heap;
-            this.size = size;
-        }
-
-        public static LazyBinomialHeap<T> Empty = new LazyBinomialHeap<T>(
+        /// <summary>
+        /// The empty heap.
+        /// </summary>
+        public static readonly LazyBinomialHeap<T> Empty = new LazyBinomialHeap<T>(
             new Susp<IList<Tree>>(() => BinaryRandomAccessList<Tree>.Empty),
             0);
 
+        private ISusp<IList<Tree>> heap;
+        private int count;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LazyBinomialHeap{T}"/> class.
+        /// </summary>
+        /// <param name="heap">The heap.</param>
+        /// <param name="count">The number of elements in the heap.</param>
+        private LazyBinomialHeap(ISusp<IList<Tree>> heap, int count)
+        {
+            this.heap = heap;
+            this.count = count;
+        }
+
+        /// <summary>
+        /// Gets the number of elements in the heap.
+        /// </summary>
         public int Count
         {
-            get { return this.size; }
+            get { return this.count; }
         }
 
+        /// <summary>
+        /// Determines whether this instance is empty.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsEmpty()
         {
-            return this.size == 0;
+            return this.count == 0;
         }
 
+        /// <summary>
+        /// Inserts the specified element into the heap.
+        /// </summary>
+        /// <param name="elem">The element to insert.</param>
+        /// <returns>
+        /// The updated heap.
+        /// </returns>
         public LazyBinomialHeap<T> Insert(T elem)
         {
             return new LazyBinomialHeap<T>(
                 this.heap.Select(trees => Insert(new Tree(0, elem, BinaryRandomAccessList<Tree>.Empty), trees)),
-                this.size + 1);
+                this.count + 1);
         }
 
+        /// <summary>
+        /// Merges the specified other heap with this instance.
+        /// </summary>
+        /// <param name="other">The other heap.</param>
+        /// <returns>
+        /// The updated heap.
+        /// </returns>
         public LazyBinomialHeap<T> Merge(LazyBinomialHeap<T> other)
         {
             return new LazyBinomialHeap<T>(
                 new Susp<IList<Tree>>(() => Merge(this.heap.Force(), other.heap.Force())),
-                this.size + other.size);
+                this.count + other.count);
         }
 
+        /// <summary>
+        /// Finds the minimum element in the heap.
+        /// </summary>
+        /// <returns>
+        /// The minimum element.
+        /// </returns>
         public T FindMin()
         {
             var minTree = UnmergeMinTree(this.heap.Force()).Item1;
-            return minTree.root;
+            return minTree.Root;
         }
 
+        /// <summary>
+        /// Deletes the minimum element from the heap.
+        /// </summary>
+        /// <returns>
+        /// The updated heap.
+        /// </returns>
         public LazyBinomialHeap<T> DeleteMin()
         {
             var p = UnmergeMinTree(this.heap.Force());
             return new LazyBinomialHeap<T>(
-                new Susp<IList<Tree>>(() => Merge(Reverse(p.Item1.subtrees), p.Item2)),
-                this.size - 1);
+                new Susp<IList<Tree>>(() => Merge(Reverse(p.Item1.Subtrees), p.Item2)),
+                this.count - 1);
         }
 
         private static IList<S> Reverse<S>(IList<S> list)
@@ -71,7 +114,7 @@
 
         private static IList<S> Reverse<S>(IList<S> list, IList<S> acc)
         {
-            if(list.IsEmpty())
+            if (list.IsEmpty())
             {
                 return acc;
             }
@@ -87,7 +130,7 @@
             {
                 return trees.Cons(tree);
             }
-            else if (tree.rank < trees.Head().rank)
+            else if (tree.Rank < trees.Head().Rank)
             {
                 return trees.Cons(tree);
             }
@@ -96,23 +139,23 @@
                 return Insert(Link(tree, trees.Head()), trees.Tail());
             }
         }
-        
+
         private static Tree Link(Tree t1, Tree t2)
         {
-            var rank = t1.rank + 1;
-            if(t1.root.CompareTo(t2.root) < 0)
+            var rank = t1.Rank + 1;
+            if (t1.Root.CompareTo(t2.Root) < 0)
             {
-                return new Tree(rank, t1.root, t1.subtrees.Cons(t2));
+                return new Tree(rank, t1.Root, t1.Subtrees.Cons(t2));
             }
             else
             {
-                return new Tree(rank, t2.root, t2.subtrees.Cons(t1));
+                return new Tree(rank, t2.Root, t2.Subtrees.Cons(t1));
             }
         }
 
         private static IList<Tree> Merge(IList<Tree> trees1, IList<Tree> trees2)
         {
-            if(trees1.IsEmpty())
+            if (trees1.IsEmpty())
             {
                 return trees2;
             }
@@ -120,11 +163,11 @@
             {
                 return trees1;
             }
-            else if (trees1.Head().rank < trees2.Head().rank)
+            else if (trees1.Head().Rank < trees2.Head().Rank)
             {
                 return Merge(trees1.Tail(), trees2).Cons(trees1.Head());
             }
-            else if (trees1.Head().rank > trees2.Head().rank)
+            else if (trees1.Head().Rank > trees2.Head().Rank)
             {
                 return Merge(trees1, trees2.Tail()).Cons(trees2.Head());
             }
@@ -136,43 +179,44 @@
 
         private static Tuple<Tree, IList<Tree>> UnmergeMinTree(IList<Tree> trees)
         {
-            if(trees.IsEmpty())
+            if (trees.IsEmpty())
             {
-                throw new Exception("Empty");
+                throw new EmptyCollectionException();
             }
-            else if(trees.Count == 1)
+            else if (trees.Count == 1)
             {
                 IList<Tree> empty = BinaryRandomAccessList<Tree>.Empty;
                 return Tuple.Create(trees.Head(), empty);
             }
             else
             {
-                var tHead = trees.Head();
+                var headTree = trees.Head();
                 var candidate = UnmergeMinTree(trees.Tail());
-                if(tHead.root.CompareTo(candidate.Item1.root) < 0)
+                if (headTree.Root.CompareTo(candidate.Item1.Root) < 0)
                 {
-                    return Tuple.Create(tHead, trees.Tail());
+                    return Tuple.Create(headTree, trees.Tail());
                 }
                 else
                 {
-                    return Tuple.Create(candidate.Item1, candidate.Item2.Cons(tHead));
+                    return Tuple.Create(candidate.Item1, candidate.Item2.Cons(headTree));
                 }
             }
         }
 
         private class Tree
         {
-            public readonly int rank;
-            public readonly T root;
-            public readonly IList<Tree> subtrees;
-   
+            public readonly int Rank;
+
+            public readonly T Root;
+
+            public readonly IList<Tree> Subtrees;
+
             public Tree(int rank, T root, IList<Tree> subtrees)
             {
-                this.rank = rank;
-                this.root = root;
-                this.subtrees = subtrees;
+                this.Rank = rank;
+                this.Root = root;
+                this.Subtrees = subtrees;
             }
-
         }
     }
 }

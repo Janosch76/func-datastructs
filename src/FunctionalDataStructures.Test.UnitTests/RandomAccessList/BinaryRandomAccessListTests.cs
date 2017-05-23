@@ -68,7 +68,7 @@
         {
             var empty = BinaryRandomAccessList<int>.Empty;
 
-            AssertThrows<Exception>(() =>
+            AssertThrows<EmptyCollectionException>(() =>
                 empty.Head());
         }
 
@@ -89,7 +89,7 @@
         {
             var empty = BinaryRandomAccessList<int>.Empty;
 
-            AssertThrows<Exception>(() =>
+            AssertThrows<EmptyCollectionException>(() =>
                 empty.Tail());
         }
 
@@ -153,7 +153,9 @@
             var empty = BinaryRandomAccessList<int>.Empty;
 
             AssertThrows<IndexOutOfRangeException>(() =>
-            { var xs = empty.Cons(1).Update(1, 17); });
+            {
+                var xs = empty.Cons(1).Update(1, 17);
+            });
         }
 
         [TestMethod]

@@ -70,7 +70,7 @@
         {
             var empty = LazyBinomialHeap<int>.Empty;
 
-            AssertThrows<Exception>(() =>
+            AssertThrows<EmptyCollectionException>(() =>
                 empty.FindMin());
         }
 
@@ -128,7 +128,7 @@
         {
             var empty = LazyBinomialHeap<int>.Empty;
 
-            AssertThrows<Exception>(() =>
+            AssertThrows<EmptyCollectionException> (() =>
                 empty.DeleteMin());
         }
 
