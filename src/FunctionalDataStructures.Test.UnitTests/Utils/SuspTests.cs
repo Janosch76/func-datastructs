@@ -52,5 +52,21 @@
                 evaluated);
         }
 
+        [TestMethod]
+        [UnitTest]
+        public void UsedTransformedResultEvaluatedOnlyOnce()
+        {
+            int evaluated = 0;
+            Func<int> computation = () => { evaluated++; return 99; };
+            Func<int, int> f = x => x + 1;
+
+            var susp = (new Susp<int>(computation)).Select(f);
+            var result1 = susp.Force();
+            var result2 = susp.Force();
+
+            Assert.AreEqual(
+                1,
+                evaluated);
+        }
     }
 }

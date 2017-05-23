@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomAccessList\BinaryRandomAccessList.cs" />
     <Compile Include="RandomAccessList\IRandomAccessList.cs" />
+    <Compile Include="Utils\Stream.cs" />
     <Compile Include="Utils\Susp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
