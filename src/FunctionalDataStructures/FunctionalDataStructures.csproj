@@ -41,6 +41,8 @@
     <Compile Include="Heap\IHeap.cs" />
     <Compile Include="Heap\LazyBinomialHeap.cs" />
     <Compile Include="Heap\LeftistHeap.cs" />
+    <Compile Include="Set\ISet.cs" />
+    <Compile Include="Set\RedBlackSet.cs" />
     <Compile Include="Utils\ISusp.cs" />
     <Compile Include="List\IList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

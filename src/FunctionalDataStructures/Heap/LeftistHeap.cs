@@ -37,7 +37,10 @@
         /// <returns>
         ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
         /// </returns>
-        public abstract bool IsEmpty();
+        public bool IsEmpty()
+        {
+            return Count == 0;
+        }
 
         /// <summary>
         /// Inserts the specified element into the heap.
@@ -81,11 +84,6 @@
         /// </summary>
         private class Leaf : LeftistHeap<T>
         {
-            public override bool IsEmpty()
-            {
-                return true;
-            }
-
             public override LeftistHeap<T> Merge(LeftistHeap<T> heap)
             {
                 return heap;
@@ -139,11 +137,6 @@
                 }                   
             }
       
-            public override bool IsEmpty()
-            {
-                return false;
-            }
-
             public override LeftistHeap<T> Merge(LeftistHeap<T> heap)
             {
                 if (heap == LeftistHeap<T>.Empty)

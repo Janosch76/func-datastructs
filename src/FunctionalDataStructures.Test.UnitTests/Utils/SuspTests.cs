@@ -8,7 +8,8 @@
     public class SuspTests : TestBase
     {
         [TestMethod]
-        public void TestMethod1()
+        [UnitTest]
+        public void UnusedResultsNotEvaluated()
         {
             int evaluated = 0;
             Func<int> computation = () => { evaluated++; return 99; };
@@ -21,7 +22,8 @@
         }
 
         [TestMethod]
-        public void TestMethod2()
+        [UnitTest]
+        public void UsedResultEvaluated()
         {
             int evaluated = 0;
             Func<int> computation = () => { evaluated++; return 99; };
@@ -35,7 +37,8 @@
         }
 
         [TestMethod]
-        public void TestMethod3()
+        [UnitTest]
+        public void UsedResultEvaluatedOnlyOnce()
         {
             int evaluated = 0;
             Func<int> computation = () => { evaluated++; return 99; };
