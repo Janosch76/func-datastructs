@@ -42,6 +42,9 @@
     <Compile Include="Heap\LazyBinomialHeap.cs" />
     <Compile Include="Heap\LeftistHeap.cs" />
     <Compile Include="Heap\SplayHeap.cs" />
+    <Compile Include="List\List.cs" />
+    <Compile Include="Queue\BatchedQueue.cs" />
+    <Compile Include="Queue\IQueue.cs" />
     <Compile Include="Set\ISet.cs" />
     <Compile Include="Set\RedBlackSet.cs" />
     <Compile Include="Utils\ISusp.cs" />
