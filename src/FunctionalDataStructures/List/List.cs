@@ -95,10 +95,21 @@
         /// </returns>
         public abstract List<T> Tail();
 
-        internal List<T> Reverse()
+        /// <summary>
+        /// Reverses this list instance.
+        /// </summary>
+        /// <returns>The reversed list.</returns>
+        public List<T> Reverse()
         {
-            throw new NotImplementedException();
+            return Reverse(Empty);
         }
+
+        /// <summary>
+        /// Reverses this list instance.
+        /// </summary>
+        /// <param name="reversed">Accumulator argument.</param>
+        /// <returns>The reversed list.</returns>
+        protected abstract List<T> Reverse(List<T> reversed);
 
         /// <summary>
         /// Represents the empty list
@@ -118,6 +129,11 @@
             public override List<T> Tail()
             {
                 throw new EmptyCollectionException();
+            }
+
+            protected override List<T> Reverse(List<T> reversed)
+            {
+                return reversed;
             }
         }
 
@@ -145,6 +161,11 @@
             public override List<T> Tail()
             {
                 return this.tail;
+            }
+
+            protected override List<T> Reverse(List<T> reversed)
+            {
+                return this.tail.Reverse(reversed.Cons(this.head));
             }
         }
     }
