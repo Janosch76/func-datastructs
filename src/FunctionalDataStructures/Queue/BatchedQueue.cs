@@ -23,7 +23,7 @@
         /// <param name="rear">The second part of the queue, reversed</param>
         private BatchedQueue(List<T> front, List<T> rear)
         {
-            if (this.front.IsEmpty())
+            if (front.IsEmpty())
             {
                 this.front = rear.Reverse();
                 this.rear = List<T>.Empty;

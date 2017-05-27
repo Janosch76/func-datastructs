@@ -60,6 +60,7 @@
     <Compile Include="Heap\LazyBinomialHeapTests.cs" />
     <Compile Include="Heap\SplayHeapTests.cs" />
     <Compile Include="Heap\LeftistHeapTests.cs" />
+    <Compile Include="Queue\BatchedQueueTests.cs" />
     <Compile Include="RandomAccessList\BinaryRandomAccessListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Set\RedBlackSetTests.cs" />
@@ -78,6 +79,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
