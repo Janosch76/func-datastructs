@@ -1,36 +1,36 @@
 ﻿namespace FunctionalDataStructures.Queue
 {
     using System;
-    using FunctionalDataStructures.List;
+    using FunctionalDataStructures.Utils;
 
     /// <summary>
-    /// Purely functional queue implementation from Chris Okasaki´s book, p. 43ff
+    /// Amortized queue using the Bankers Method, from Chris Okasaki´s book, p. 64ff
     /// </summary>
     /// <typeparam name="T">The element type</typeparam>
-    public class BatchedQueue<T> : IQueue<T>
+    public class BankersQueue<T> : IQueue<T>
     {
         /// <summary>
         /// The empty queue.
         /// </summary>
-        public static readonly BatchedQueue<T> Empty = new BatchedQueue<T>(List<T>.Empty, List<T>.Empty);
+        public static readonly BankersQueue<T> Empty = new BankersQueue<T>(0, Stream<T>.Nil, 0, Stream<T>.Nil);
 
-        private List<T> front, rear;
+        private Stream<T> front, rear;
+        private int frontLength, rearLength;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BatchedQueue{T}"/> class.
-        /// </summary>
-        /// <param name="front">The first part of the queue</param>
-        /// <param name="rear">The second part of the queue, reversed</param>
-        private BatchedQueue(List<T> front, List<T> rear)
+        private BankersQueue(int frontLength, Stream<T> front, int rearLength, Stream<T> rear)
         {
-            if (front.IsEmpty())
+            if (frontLength < rearLength)
             {
-                this.front = rear.Reverse();
-                this.rear = List<T>.Empty;
+                this.frontLength = frontLength + rearLength;
+                this.front = front.Append(rear.Reverse());
+                this.rearLength = 0;
+                this.rear = Stream<T>.Nil;
             }
             else
             {
+                this.frontLength = frontLength;
                 this.front = front;
+                this.rearLength = rearLength;
                 this.rear = rear;
             }
         }
@@ -40,7 +40,7 @@
         /// </summary>
         public int Count
         {
-            get { return front.Count + rear.Count; }
+            get { return frontLength + rearLength; }
         }
 
         /// <summary>
@@ -67,7 +67,8 @@
                 throw new EmptyCollectionException();
             }
 
-            return this.front.Head();
+            var p = this.front.Uncons();
+            return p.Item1;
         }
 
         /// <summary>
@@ -83,7 +84,12 @@
                 throw new EmptyCollectionException();
             }
 
-            return new BatchedQueue<T>(this.front.Tail(), this.rear);
+            var p = this.front.Uncons();
+            return new BankersQueue<T>(
+                this.frontLength - 1,
+                p.Item2, 
+                this.rearLength,
+                this.rear);
         }
 
         /// <summary>
@@ -95,7 +101,11 @@
         /// </returns>
         public IQueue<T> Snoc(T element)
         {
-            return new BatchedQueue<T>(this.front, this.rear.Cons(element));
+            return new BankersQueue<T>(
+                this.frontLength, 
+                this.front, 
+                this.rearLength + 1, 
+                this.rear.Cons(element));
         }
     }
 }
