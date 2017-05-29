@@ -46,6 +46,7 @@
     <Compile Include="Queue\BankersQueue.cs" />
     <Compile Include="Queue\BatchedQueue.cs" />
     <Compile Include="Queue\IQueue.cs" />
+    <Compile Include="Queue\PhysicistsQueue.cs" />
     <Compile Include="Set\ISet.cs" />
     <Compile Include="Set\RedBlackSet.cs" />
     <Compile Include="Utils\ISusp.cs" />

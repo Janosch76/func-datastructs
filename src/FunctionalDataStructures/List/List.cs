@@ -96,6 +96,13 @@
         public abstract List<T> Tail();
 
         /// <summary>
+        /// Appends the specified list to this instance.
+        /// </summary>
+        /// <param name="other">The other list.</param>
+        /// <returns>The concatenated lists.</returns>
+        public abstract List<T> Append(List<T> other);
+
+        /// <summary>
         /// Reverses this list instance.
         /// </summary>
         /// <returns>The reversed list.</returns>
@@ -131,6 +138,11 @@
                 throw new EmptyCollectionException();
             }
 
+            public override List<T> Append(List<T> other)
+            {
+                return other;
+            }
+
             protected override List<T> Reverse(List<T> reversed)
             {
                 return reversed;
@@ -161,6 +173,11 @@
             public override List<T> Tail()
             {
                 return this.tail;
+            }
+
+            public override List<T> Append(List<T> other)
+            {
+                return new ConsCell(this.head, this.tail.Append(other));
             }
 
             protected override List<T> Reverse(List<T> reversed)
