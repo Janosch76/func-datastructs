@@ -1,7 +1,5 @@
 ﻿namespace FunctionalDataStructures.List
 {
-    using System;
-
     /// <summary>
     /// Signature for persistent lists
     /// </summary>
