@@ -39,7 +39,7 @@
   <ItemGroup>
     <Compile Include="NotFoundException.cs" />
     <Compile Include="EmptyCollectionException.cs" />
-    <Compile Include="FiniteMap\FiniteMap.cs" />
+    <Compile Include="FiniteMap\IFiniteMap.cs" />
     <Compile Include="Heap\IHeap.cs" />
     <Compile Include="Heap\LazyBinomialHeap.cs" />
     <Compile Include="Heap\LeftistHeap.cs" />
