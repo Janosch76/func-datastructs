@@ -119,5 +119,25 @@
                 2,
                 reversed.Tail().Head());
         }
+
+        [TestMethod]
+        [UnitTest]
+        public void FindExistingElement()
+        {
+            var list = List<int>.Empty.Cons(3).Cons(2).Cons(1);  // [1,2,3]
+            var element = list.Find(elem => elem > 1);
+
+            Assert.AreEqual(2, element);
+        }
+
+        [TestMethod]
+        [UnitTest]
+        public void FindThrowsWhenNoMatchingElementFound()
+        {
+            var list = List<int>.Empty.Cons(3).Cons(2).Cons(1);  // [1,2,3]
+
+            AssertThrows<NotFoundException>(() =>
+                list.Find(elem => elem == 0));
+        }
     }
 }

@@ -8,6 +8,19 @@
     public interface IFiniteMap<TKey, T>
     {
         /// <summary>
+        /// Gets the number of elements in the map.
+        /// </summary>
+        int Count { get; }
+
+        /// <summary>
+        /// Determines whether this instance is empty.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsEmpty();
+
+        /// <summary>
         /// Adds a new key-value binding to the dictionary.
         /// </summary>
         /// <param name="key">The key.</param>

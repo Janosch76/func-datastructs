@@ -25,14 +25,6 @@
         /// </summary>
         public int Count { get; protected set; }
 
-        int IList<T>.Count
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         /// <summary>
         /// Determines whether this instance is empty.
         /// </summary>
@@ -103,6 +95,13 @@
         public abstract List<T> Append(List<T> other);
 
         /// <summary>
+        /// Finds the first element satisfying the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>Returns the first element satisfying the given predicate.</returns>
+        public abstract T Find(Func<T, bool> predicate);
+
+        /// <summary>
         /// Reverses this list instance.
         /// </summary>
         /// <returns>The reversed list.</returns>
@@ -143,6 +142,11 @@
                 return other;
             }
 
+            public override T Find(Func<T, bool> predicate)
+            {
+                throw new NotFoundException();
+            }
+
             protected override List<T> Reverse(List<T> reversed)
             {
                 return reversed;
@@ -178,6 +182,18 @@
             public override List<T> Append(List<T> other)
             {
                 return new ConsCell(this.head, this.tail.Append(other));
+            }
+
+            public override T Find(Func<T, bool> predicate)
+            {
+                if (predicate(this.head))
+                {
+                    return this.head;
+                }
+                else
+                {
+                    return this.tail.Find(predicate);
+                }
             }
 
             protected override List<T> Reverse(List<T> reversed)

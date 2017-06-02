@@ -57,6 +57,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FiniteMap\AssociationListTests.cs" />
+    <Compile Include="FiniteMap\UnbalancedAssociationTreeTests.cs" />
     <Compile Include="Heap\LazyBinomialHeapTests.cs" />
     <Compile Include="Heap\SplayHeapTests.cs" />
     <Compile Include="Heap\LeftistHeapTests.cs" />
@@ -82,9 +84,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FiniteMap\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

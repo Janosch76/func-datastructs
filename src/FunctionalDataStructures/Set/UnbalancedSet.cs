@@ -68,6 +68,13 @@
         public abstract bool IsMember(T elem);
 
         /// <summary>
+        /// Finds the first element satisfying the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>Returns the first element satisfying the given predicate.</returns>
+        public abstract T Find(Func<T, bool> predicate);
+
+        /// <summary>
         /// Represents an empty binary tree
         /// </summary>
         private class Leaf : UnbalancedSet<T>
@@ -80,6 +87,11 @@
             public override UnbalancedSet<T> Insert(T elem)
             {
                 return new Node(Empty, elem, Empty);
+            }
+
+            public override T Find(Func<T, bool> predicate)
+            {
+                throw new NotFoundException();
             }
         }
 
@@ -129,6 +141,25 @@
                 else
                 {
                     return this;
+                }
+            }
+
+            public override T Find(Func<T, bool> predicate)
+            {
+                if (predicate(this.element))
+                {
+                    return this.element;
+                }
+                else
+                {
+                    try
+                    {
+                        return this.left.Find(predicate);
+                    }
+                    catch (NotFoundException)
+                    {
+                        return this.right.Find(predicate);
+                    }
                 }
             }
         }
