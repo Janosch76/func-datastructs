@@ -20,7 +20,15 @@
         private List<T> rear;
         private int frontLength, rearLength;
 
-        public PhysicistsQueue(List<T> frontWorkingPrefix, int frontLength, Susp<List<T>> front, int rearLength, List<T> rear)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhysicistsQueue{T}"/> class.
+        /// </summary>
+        /// <param name="frontWorkingPrefix">The evaluated prefix of the suspended front list</param>
+        /// <param name="frontLength">The length of the suspended front list</param>
+        /// <param name="front">The suspended front list</param>
+        /// <param name="rearLength">The length of the rear list</param>
+        /// <param name="rear">The rear list</param>
+        private PhysicistsQueue(List<T> frontWorkingPrefix, int frontLength, Susp<List<T>> front, int rearLength, List<T> rear)
         {
             if (frontLength < rearLength)
             {
