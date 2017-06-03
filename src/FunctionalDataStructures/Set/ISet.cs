@@ -6,7 +6,7 @@
     /// Signature for sets.
     /// </summary>
     /// <typeparam name="T">The element type.</typeparam>
-    public interface ISet<T>
+    public interface ISet<T> :  System.Collections.Generic.IEnumerable<T>
     {
         /// <summary>
         /// Gets the number of elements in the set.

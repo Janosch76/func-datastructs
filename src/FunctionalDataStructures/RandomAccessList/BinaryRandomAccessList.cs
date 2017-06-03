@@ -171,6 +171,43 @@
         protected abstract BinaryRandomAccessList<T> Update(int i, Func<T, T> f);
 
         /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        {
+            var current = this;
+            while (!(current is Nil))
+            {
+                if (current is Zero)
+                {
+                    var cell = current as Zero;
+                    current = cell.Tail();
+                }
+
+                if (current is One)
+                {
+                    var cell = current as One;
+                    yield return cell.Head();
+                    current = cell.Tail();
+                }
+            }
+        }
+
+        /// <summary>
         /// Represents an empty collection
         /// </summary>
         private class Nil : BinaryRandomAccessList<T>

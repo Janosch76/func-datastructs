@@ -75,6 +75,28 @@
         public abstract T Find(Func<T, bool> predicate);
 
         /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Represents an empty binary tree
         /// </summary>
         private class Leaf : UnbalancedSet<T>
@@ -140,7 +162,7 @@
                 }
                 else
                 {
-                    return this;
+                    return new Node(this.left, elem, this.right);
                 }
             }
 

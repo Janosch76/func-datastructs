@@ -4,7 +4,7 @@
     /// Signature for persistent lists
     /// </summary>
     /// <typeparam name="T">The element type</typeparam>
-    public interface IList<T>
+    public interface IList<T> : System.Collections.Generic.IEnumerable<T>
     {
         /// <summary>
         /// Gets the number of elements in the list.

@@ -1,11 +1,14 @@
 ﻿namespace FunctionalDataStructures.FiniteMap
 {
+    using System;
+
     /// <summary>
     /// Signature for persistent dictionaries
     /// </summary>
     /// <typeparam name="TKey">The key type</typeparam>
     /// <typeparam name="T">The element type</typeparam>
-    public interface IFiniteMap<TKey, T>
+    public interface IFiniteMap<TKey, T> : System.Collections.Generic.IEnumerable<Binding<TKey, T>>
+         where TKey : IComparable<TKey>
     {
         /// <summary>
         /// Gets the number of elements in the map.

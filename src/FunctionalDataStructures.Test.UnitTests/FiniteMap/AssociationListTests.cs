@@ -37,7 +37,18 @@
 
             Assert.AreEqual(
                 2,
-                empty.Bind("key1",1).Bind("key2",2).Count);
+                empty.Bind("key1", 1).Bind("key2", 2).Count);
+        }
+
+        [TestMethod]
+        [UnitTest]
+        public void DuplicateBindingsNotCounted()
+        {
+            var empty = AssociationList<string, int>.Empty;
+
+            Assert.AreEqual(
+                1,
+                empty.Bind("key1", 1).Bind("key1", 2).Count);
         }
 
         [TestMethod]

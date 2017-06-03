@@ -95,6 +95,13 @@
         public abstract List<T> Append(List<T> other);
 
         /// <summary>
+        /// Checks if any element in the list satisfies the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>True if one or more elements satisfy the given predicate.</returns>
+        public abstract bool Any(Func<T, bool> predicate);
+
+        /// <summary>
         /// Finds the first element satisfying the specified predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
@@ -116,6 +123,34 @@
         /// <param name="reversed">Accumulator argument.</param>
         /// <returns>The reversed list.</returns>
         protected abstract List<T> Reverse(List<T> reversed);
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        {
+            var current = this;
+            while (current is ConsCell)
+            {
+                var cell = current as ConsCell;
+                yield return cell.Head();
+                current = cell.Tail();
+            }
+        }
 
         /// <summary>
         /// Represents the empty list
@@ -140,6 +175,11 @@
             public override List<T> Append(List<T> other)
             {
                 return other;
+            }
+
+            public override bool Any(Func<T, bool> predicate)
+            {
+                return false;
             }
 
             public override T Find(Func<T, bool> predicate)
@@ -182,6 +222,11 @@
             public override List<T> Append(List<T> other)
             {
                 return new ConsCell(this.head, this.tail.Append(other));
+            }
+
+            public override bool Any(Func<T, bool> predicate)
+            {
+                return predicate(this.head) || this.tail.Any(predicate);
             }
 
             public override T Find(Func<T, bool> predicate)

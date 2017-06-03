@@ -7,7 +7,7 @@
     /// </summary>
     /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="T">The element type</typeparam>
-    internal class Binding<TKey, T> : IComparable<Binding<TKey, T>>
+    public class Binding<TKey, T> : IComparable<Binding<TKey, T>>
         where TKey : IComparable<TKey>
     {
         /// <summary>

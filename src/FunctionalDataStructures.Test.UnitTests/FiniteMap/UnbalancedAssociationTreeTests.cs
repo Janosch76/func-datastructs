@@ -42,6 +42,17 @@
 
         [TestMethod]
         [UnitTest]
+        public void DuplicateBindingsNotCounted()
+        {
+            var empty = UnbalancedAssociationTree<string, int>.Empty;
+
+            Assert.AreEqual(
+                1,
+                empty.Bind("key1", 1).Bind("key1", 2).Count);
+        }
+
+        [TestMethod]
+        [UnitTest]
         public void LookupInEmptyMapThrowsException()
         {
             var empty = UnbalancedAssociationTree<string, int>.Empty;
