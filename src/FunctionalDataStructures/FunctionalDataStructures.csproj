@@ -54,6 +54,7 @@
     <Compile Include="Queue\IDequeue.cs" />
     <Compile Include="Queue\IQueue.cs" />
     <Compile Include="Queue\PhysicistsQueue.cs" />
+    <Compile Include="Queue\QueueEnumerator.cs" />
     <Compile Include="Set\ISet.cs" />
     <Compile Include="Set\OrderedListSet.cs" />
     <Compile Include="Set\RedBlackSet.cs" />

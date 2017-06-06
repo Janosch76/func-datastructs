@@ -1,10 +1,12 @@
 ﻿namespace FunctionalDataStructures.Queue
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Signature for queues
     /// </summary>
     /// <typeparam name="T">The element type.</typeparam>
-    public interface IQueue<T>
+    public interface IQueue<T> : IEnumerable<T>
     {
         /// <summary>
         /// Gets the number of elements in the queue.

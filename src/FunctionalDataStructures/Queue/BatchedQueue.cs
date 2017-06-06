@@ -97,5 +97,27 @@
         {
             return new BatchedQueue<T>(this.front, this.rear.Cons(element));
         }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        {
+            return new QueueEnumerator<T>(this);
+        }
     }
 }

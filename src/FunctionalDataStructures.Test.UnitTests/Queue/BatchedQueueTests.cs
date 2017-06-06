@@ -1,6 +1,7 @@
 ﻿namespace FunctionalDataStructures.Test.UnitTests.Queue
 {
     using System;
+    using System.Linq;
     using FunctionalDataStructures.Queue;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -117,6 +118,18 @@
             Assert.AreEqual(
                 2,
                 queue.Tail().Head());
+        }
+
+        [TestMethod]
+        [UnitTest]
+        public void FifoEnumerationOfQueue()
+        {
+            var queue = BankersQueue<int>.Empty.Snoc(1).Snoc(2);  // [1,2]
+            var elements = queue.ToArray();
+
+            Assert.AreEqual(2, elements.Length);
+            Assert.AreEqual(1, elements[0]);
+            Assert.AreEqual(2, elements[1]);
         }
     }
 }

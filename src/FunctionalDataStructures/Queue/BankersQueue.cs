@@ -1,6 +1,8 @@
 ﻿namespace FunctionalDataStructures.Queue
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using FunctionalDataStructures.Utils;
 
     /// <summary>
@@ -106,6 +108,28 @@
                 this.front, 
                 this.rearLength + 1, 
                 this.rear.Cons(element));
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new QueueEnumerator<T>(this);
         }
     }
 }
