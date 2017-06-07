@@ -1,32 +1,35 @@
-﻿namespace FunctionalDataStructures.Queue
+﻿namespace FunctionalDataStructures.Heap
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
 
     /// <summary>
-    /// Generic enumerator for <see cref="IQueue{T}"/> implementations
+    /// Generic enumerator for <see cref="IHeap{THeap, T}"/> implementations
     /// </summary>
+    /// <typeparam name="THeap">The heap type</typeparam>
     /// <typeparam name="T">The element type</typeparam>
     /// <seealso cref="System.Collections.Generic.IEnumerator{T}" />
-    public class QueueEnumerator<T> : IEnumerator<T>
+    public class HeapEnumerator<THeap,T> : IEnumerator<T>
+        where THeap : IHeap<THeap, T>
+        where T : IComparable<T>
     {
-        private readonly IQueue<T> queue;
-        private IQueue<T> state;
+        private readonly IHeap<THeap,T> heap;
+        private IHeap<THeap,T> state;
         private bool disposedValue = false; // To detect redundant calls
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QueueEnumerator{T}"/> class.
+        /// Initializes a new instance of the <see cref="HeapEnumerator{THeap, T}"/> class.
         /// </summary>
-        /// <param name="queue">The queue.</param>
-        internal QueueEnumerator(IQueue<T> queue)
+        /// <param name="heap">The heap.</param>
+        internal HeapEnumerator(IHeap<THeap, T> heap)
         {
-            if(queue == null)
+            if (heap == null)
             {
-                throw new ArgumentNullException("queue");
+                throw new ArgumentNullException("heap");
             }
 
-            this.queue = queue;
+            this.heap = heap;
             this.state = null;
         }
 
@@ -35,7 +38,7 @@
         /// </summary>
         public T Current
         {
-            get { return this.state.Head(); }
+            get { return this.state.FindMin(); }
         }
 
         /// <summary>
@@ -52,19 +55,21 @@
         /// <returns>
         /// true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.
         /// </returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public bool MoveNext()
         {
             if (this.state == null)
             {
-                 this.state = this.queue;
+                this.state = this.heap;
             }
             else
             {
-                this.state = this.state.Tail();
+                this.state = this.state.DeleteMin();
             }
 
             return !this.state.IsEmpty();
         }
+
 
         /// <summary>
         /// Sets the enumerator to its initial position, which is before the first element in the collection.
