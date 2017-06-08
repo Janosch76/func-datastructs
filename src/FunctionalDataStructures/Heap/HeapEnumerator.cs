@@ -10,12 +10,12 @@
     /// <typeparam name="THeap">The heap type</typeparam>
     /// <typeparam name="T">The element type</typeparam>
     /// <seealso cref="System.Collections.Generic.IEnumerator{T}" />
-    public class HeapEnumerator<THeap,T> : IEnumerator<T>
+    public class HeapEnumerator<THeap, T> : IEnumerator<T>
         where THeap : IHeap<THeap, T>
         where T : IComparable<T>
     {
-        private readonly IHeap<THeap,T> heap;
-        private IHeap<THeap,T> state;
+        private readonly IHeap<THeap, T> heap;
+        private IHeap<THeap, T> state;
         private bool disposedValue = false; // To detect redundant calls
 
         /// <summary>
@@ -55,7 +55,6 @@
         /// <returns>
         /// true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.
         /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
         public bool MoveNext()
         {
             if (this.state == null)
@@ -69,7 +68,6 @@
 
             return !this.state.IsEmpty();
         }
-
 
         /// <summary>
         /// Sets the enumerator to its initial position, which is before the first element in the collection.

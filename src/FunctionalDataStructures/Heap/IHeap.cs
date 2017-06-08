@@ -1,13 +1,14 @@
 ﻿namespace FunctionalDataStructures.Heap
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Signature for heaps (priority queues)
     /// </summary>
     /// <typeparam name="THeap">The type of the heap.</typeparam>
     /// <typeparam name="T">The element type.</typeparam>
-    public interface IHeap<THeap, T> 
+    public interface IHeap<THeap, T> : IEnumerable<T>
         where THeap : IHeap<THeap, T> 
         where T : IComparable<T>
     {
