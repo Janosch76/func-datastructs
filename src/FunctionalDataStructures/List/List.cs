@@ -143,13 +143,7 @@
         /// </returns>
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
-            var current = this;
-            while (current is ConsCell)
-            {
-                var cell = current as ConsCell;
-                yield return cell.Head();
-                current = cell.Tail();
-            }
+            return new ListEnumerator<T>(this);
         }
 
         /// <summary>

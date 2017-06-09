@@ -87,7 +87,7 @@
         /// <returns>
         /// The updated list.
         /// </returns>
-        public BinaryRandomAccessList<T> Tail() 
+        public BinaryRandomAccessList<T> Tail()
         {
             var p = this.Uncons();
             return p.Item2;
@@ -153,24 +153,6 @@
         public abstract BinaryRandomAccessList<T> Cons(T elem);
 
         /// <summary>
-        /// Decomposes this instance into head and tail.
-        /// </summary>
-        /// <returns>
-        /// A pair consisting of the head and tail of the list.
-        /// </returns>
-        protected abstract Tuple<T, BinaryRandomAccessList<T>> Uncons();
-
-        /// <summary>
-        /// Updates the element at the specified index.
-        /// </summary>
-        /// <param name="i">The index.</param>
-        /// <param name="f">The subtree to replace.</param>
-        /// <returns>
-        /// The updated list.
-        /// </returns>
-        protected abstract BinaryRandomAccessList<T> Update(int i, Func<T, T> f);
-
-        /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>
@@ -189,13 +171,26 @@
         /// </returns>
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
-            var current = this;
-            while (!current.IsEmpty())
-            {
-                yield return current.Head();
-                current = current.Tail();
-            }
+            return new ListEnumerator<T>(this);
         }
+
+        /// <summary>
+        /// Decomposes this instance into head and tail.
+        /// </summary>
+        /// <returns>
+        /// A pair consisting of the head and tail of the list.
+        /// </returns>
+        protected abstract Tuple<T, BinaryRandomAccessList<T>> Uncons();
+
+        /// <summary>
+        /// Updates the element at the specified index.
+        /// </summary>
+        /// <param name="i">The index.</param>
+        /// <param name="f">The subtree to replace.</param>
+        /// <returns>
+        /// The updated list.
+        /// </returns>
+        protected abstract BinaryRandomAccessList<T> Update(int i, Func<T, T> f);
 
         /// <summary>
         /// Represents an empty collection
