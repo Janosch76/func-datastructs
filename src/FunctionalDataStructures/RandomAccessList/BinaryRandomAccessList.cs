@@ -190,20 +190,10 @@
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
             var current = this;
-            while (!(current is Nil))
+            while (!current.IsEmpty())
             {
-                if (current is Zero)
-                {
-                    var cell = current as Zero;
-                    current = cell.Tail();
-                }
-
-                if (current is One)
-                {
-                    var cell = current as One;
-                    yield return cell.Head();
-                    current = cell.Tail();
-                }
+                yield return current.Head();
+                current = current.Tail();
             }
         }
 

@@ -7,7 +7,7 @@
     /// </summary>
     /// <typeparam name="T">The element type</typeparam>
     /// <seealso cref="FunctionalDataStructures.List.IList{T}" />
-    public interface IRandomAccessList<T> : IList<T>
+    public interface IRandomAccessList<T> : IList<T>, System.Collections.Generic.IEnumerable<T>
     {
         /// <summary>
         /// Gets the element at the specified index.

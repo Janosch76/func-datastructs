@@ -3,6 +3,7 @@
     using System;
     using FunctionalDataStructures.RandomAccessList;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Linq;
 
     [TestClass]
     public class BinaryRandomAccessListTests : TestBase
@@ -188,6 +189,19 @@
                 17,
                 empty.Cons(17).Cons(25).Cons(99).Update(1, 26)[2],
                 "Update changed element at position 2.");
+        }
+
+        [TestMethod]
+        [UnitTest]
+        public void EnumerationOfRandomAccessList()
+        {
+            var list = BinaryRandomAccessList<int>.Empty.Cons(2).Cons(1).Cons(3);  // [3,1,2]
+            var elements = list.ToArray();
+
+            Assert.AreEqual(3, elements.Length, "Different length");
+            Assert.AreEqual(3, elements[0], "Different first element");
+            Assert.AreEqual(1, elements[1], "Different second element");
+            Assert.AreEqual(2, elements[2], "Different third element");
         }
     }
 }
