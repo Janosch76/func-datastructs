@@ -156,6 +156,19 @@
 
         [TestMethod]
         [UnitTest]
+        public void OrderedEnumerationOfHeap()
+        {
+            var heap = LazyBinomialHeap<int>.Empty.Insert(3).Insert(1).Insert(2);  // [3,1,2]
+            var elements = heap.ToArray();
+
+            Assert.AreEqual(3, elements.Length);
+            Assert.AreEqual(1, elements[0]);
+            Assert.AreEqual(2, elements[1]);
+            Assert.AreEqual(3, elements[2]);
+        }
+
+        [TestMethod]
+        [UnitTest]
         public void RepeatedFindMinReturnsAscendingSequence()
         {
             var seq = RandomSequence(1000).ToList();

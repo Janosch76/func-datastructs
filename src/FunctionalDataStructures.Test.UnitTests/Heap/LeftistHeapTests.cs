@@ -1,6 +1,7 @@
 ﻿namespace FunctionalDataStructures.Test.UnitTests.Heap
 {
     using System;
+    using System.Linq;
     using FunctionalDataStructures.Heap;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -150,6 +151,19 @@
             Assert.AreEqual(
                 2,
                 empty.Insert(1).Insert(3).Insert(2).DeleteMin().FindMin());
+        }
+
+        [TestMethod]
+        [UnitTest]
+        public void OrderedEnumerationOfHeap()
+        {
+            var heap = LeftistHeap<int>.Empty.Insert(3).Insert(1).Insert(2);  // [3,1,2]
+            var elements = heap.ToArray();
+
+            Assert.AreEqual(3, elements.Length);
+            Assert.AreEqual(1, elements[0]);
+            Assert.AreEqual(2, elements[1]);
+            Assert.AreEqual(3, elements[2]);
         }
     }
 }
