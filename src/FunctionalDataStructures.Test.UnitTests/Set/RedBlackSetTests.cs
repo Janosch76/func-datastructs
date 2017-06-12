@@ -1,6 +1,7 @@
 ﻿namespace FunctionalDataStructures.Test.UnitTests.Set
 {
     using System;
+    using System.Linq;
     using FunctionalDataStructures.Set;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -104,6 +105,19 @@
             Assert.AreEqual(
                 false,
                 empty.Insert(2).Insert(5).Insert(3).IsMember(4));
+        }
+
+        [TestMethod]
+        [UnitTest]
+        public void OrderedEnumerationOfSet()
+        {
+            var set = RedBlackSet<int>.Empty.Insert(3).Insert(1).Insert(2);  // {3,1,2}
+            var elements = set.ToArray();
+
+            Assert.AreEqual(3, elements.Length);
+            Assert.AreEqual(1, elements[0]);
+            Assert.AreEqual(2, elements[1]);
+            Assert.AreEqual(3, elements[2]);
         }
     }
 }

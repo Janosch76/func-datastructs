@@ -106,11 +106,10 @@
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
             var current = this;
-            while (current is ConsCell)
+            while (!current.IsEmpty())
             {
-                var cell = current as ConsCell;
-                yield return cell.Head();
-                current = cell.Tail();
+                yield return current.Head();
+                current = current.Tail();
             }
         }
 

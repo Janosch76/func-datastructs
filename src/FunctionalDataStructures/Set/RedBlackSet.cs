@@ -74,22 +74,6 @@
         public abstract bool IsMember(T elem);
 
         /// <summary>
-        /// Represents an empty Red-Black tree
-        /// </summary>
-        private class Leaf : RedBlackSet<T>
-        {
-            public override bool IsMember(T elem)
-            {
-                return false;
-            }
-
-            public override RedBlackSet<T> Insert(T elem)
-            {
-                return Node.Red(Empty, elem, Empty);
-            }
-        }
-
-        /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
         /// <returns>
@@ -106,9 +90,27 @@
         /// <returns>
         /// An enumerator that can be used to iterate through the collection.
         /// </returns>
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        public abstract System.Collections.Generic.IEnumerator<T> GetEnumerator();
+
+        /// <summary>
+        /// Represents an empty Red-Black tree
+        /// </summary>
+        private class Leaf : RedBlackSet<T>
         {
-            throw new NotImplementedException();
+            public override bool IsMember(T elem)
+            {
+                return false;
+            }
+
+            public override RedBlackSet<T> Insert(T elem)
+            {
+                return Node.Red(Empty, elem, Empty);
+            }
+
+            public override System.Collections.Generic.IEnumerator<T> GetEnumerator()
+            {
+                yield break;
+            }
         }
 
         /// <summary>
@@ -169,6 +171,25 @@
                 else
                 {
                     return new Node(this.color, this.left, this.element, this.right);
+                }
+            }
+
+            public override System.Collections.Generic.IEnumerator<T> GetEnumerator()
+            {
+                // in-order enumeration: 
+                // enumerate left subtree
+                foreach (T element in this.left)
+                {
+                    yield return element;
+                }
+
+                // root element
+                yield return this.element;
+
+                // enumerate right subtree
+                foreach (T element in this.right)
+                {
+                    yield return element;
                 }
             }
 

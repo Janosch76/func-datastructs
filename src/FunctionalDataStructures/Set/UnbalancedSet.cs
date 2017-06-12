@@ -91,10 +91,7 @@
         /// <returns>
         /// An enumerator that can be used to iterate through the collection.
         /// </returns>
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract System.Collections.Generic.IEnumerator<T> GetEnumerator();
 
         /// <summary>
         /// Represents an empty binary tree
@@ -114,6 +111,11 @@
             public override T Find(Func<T, bool> predicate)
             {
                 throw new NotFoundException();
+            }
+
+            public override System.Collections.Generic.IEnumerator<T> GetEnumerator()
+            {
+                yield break;
             }
         }
 
@@ -182,6 +184,25 @@
                     {
                         return this.right.Find(predicate);
                     }
+                }
+            }
+
+            public override System.Collections.Generic.IEnumerator<T> GetEnumerator()
+            {
+                // in-order enumeration: 
+                // enumerate left subtree
+                foreach (T element in this.left)
+                {
+                    yield return element;
+                }
+
+                // root element
+                yield return this.element;
+
+                // enumerate right subtree
+                foreach (T element in this.right)
+                {
+                    yield return element;
                 }
             }
         }
