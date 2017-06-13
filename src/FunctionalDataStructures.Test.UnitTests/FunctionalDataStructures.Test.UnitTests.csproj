@@ -63,6 +63,7 @@
     <Compile Include="Heap\LazyBinomialHeapTests.cs" />
     <Compile Include="Heap\SplayHeapTests.cs" />
     <Compile Include="Heap\LeftistHeapTests.cs" />
+    <Compile Include="Queue\BankersDequeueTests.cs" />
     <Compile Include="Queue\BatchedQueueTests.cs" />
     <Compile Include="Queue\BankersQueueTests.cs" />
     <Compile Include="Queue\PhysicistsQueueTests.cs" />

@@ -51,6 +51,7 @@
     <Compile Include="Heap\LeftistHeap.cs" />
     <Compile Include="Heap\SplayHeap.cs" />
     <Compile Include="List\List.cs" />
+    <Compile Include="Queue\BankersDequeue.cs" />
     <Compile Include="Queue\BankersQueue.cs" />
     <Compile Include="Queue\BatchedQueue.cs" />
     <Compile Include="Queue\IDequeue.cs" />
