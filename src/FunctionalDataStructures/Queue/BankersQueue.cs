@@ -16,8 +16,8 @@
         /// </summary>
         public static readonly BankersQueue<T> Empty = new BankersQueue<T>(0, Stream<T>.Nil, 0, Stream<T>.Nil);
 
-        private Stream<T> front, rear;
-        private int frontLength, rearLength;
+        private readonly Stream<T> front, rear;
+        private readonly int frontLength, rearLength;
 
         private BankersQueue(int frontLength, Stream<T> front, int rearLength, Stream<T> rear)
         {

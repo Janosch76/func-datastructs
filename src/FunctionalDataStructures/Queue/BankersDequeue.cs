@@ -19,8 +19,8 @@
 
         private const int c = 2;
 
-        private Stream<T> front, rear;
-        private int frontLength, rearLength;
+        private readonly Stream<T> front, rear;
+        private readonly int frontLength, rearLength;
 
         private BankersDequeue(int frontLength, Stream<T> front, int rearLength, Stream<T> rear)
         {

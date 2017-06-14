@@ -15,10 +15,10 @@
         /// </summary>
         public static readonly PhysicistsQueue<T> Empty = new PhysicistsQueue<T>(List<T>.Empty, 0, new Susp<List<T>>(() => List<T>.Empty), 0, List<T>.Empty);
 
-        private List<T> frontWorkingPrefix;
-        private Susp<List<T>> front;
-        private List<T> rear;
-        private int frontLength, rearLength;
+        private readonly List<T> frontWorkingPrefix;
+        private readonly Susp<List<T>> front;
+        private readonly List<T> rear;
+        private readonly int frontLength, rearLength;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicistsQueue{T}"/> class.

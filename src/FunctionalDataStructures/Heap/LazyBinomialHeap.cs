@@ -20,8 +20,8 @@
             new Susp<IList<Tree>>(() => BinaryRandomAccessList<Tree>.Empty),
             0);
 
-        private ISusp<IList<Tree>> heap;
-        private int count;
+        private readonly ISusp<IList<Tree>> heap;
+        private readonly int count;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LazyBinomialHeap{T}"/> class.

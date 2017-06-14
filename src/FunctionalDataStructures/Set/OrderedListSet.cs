@@ -143,8 +143,8 @@
 
         private class ConsCell : OrderedListSet<T>
         {
-            private T head;
-            private OrderedListSet<T> tail;
+            private readonly T head;
+            private readonly OrderedListSet<T> tail;
 
             public ConsCell(T head, OrderedListSet<T> tail)
             {

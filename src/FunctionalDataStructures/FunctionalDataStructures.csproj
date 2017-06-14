@@ -62,6 +62,8 @@
     <Compile Include="Set\OrderedListSet.cs" />
     <Compile Include="Set\RedBlackSet.cs" />
     <Compile Include="Set\UnbalancedSet.cs" />
+    <Compile Include="SortableCollection\BottomUpMergesort.cs" />
+    <Compile Include="SortableCollection\ISortableCollection.cs" />
     <Compile Include="Utils\ISusp.cs" />
     <Compile Include="List\IList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

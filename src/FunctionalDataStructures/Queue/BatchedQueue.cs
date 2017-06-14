@@ -14,7 +14,7 @@
         /// </summary>
         public static readonly BatchedQueue<T> Empty = new BatchedQueue<T>(List<T>.Empty, List<T>.Empty);
 
-        private List<T> front, rear;
+        private readonly List<T> front, rear;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BatchedQueue{T}"/> class.
