@@ -76,7 +76,7 @@
         /// <returns>
         /// The tail of the queue.
         /// </returns>
-        public IQueue<T> Tail()
+        public BatchedQueue<T> Tail()
         {
             if (this.front.IsEmpty())
             {
@@ -93,20 +93,9 @@
         /// <returns>
         /// The queue with the specified element at the end.
         /// </returns>
-        public IQueue<T> Snoc(T element)
+        public BatchedQueue<T> Snoc(T element)
         {
             return new BatchedQueue<T>(this.front, this.rear.Cons(element));
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
-        /// </returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         /// <summary>
@@ -118,6 +107,40 @@
         public System.Collections.Generic.IEnumerator<T> GetEnumerator()
         {
             return new QueueEnumerator<T>(this);
+        }
+
+        /// <summary>
+        /// Returns the tail of the queue.
+        /// </summary>
+        /// <returns>
+        /// The tail of the queue.
+        /// </returns>
+        IQueue<T> IQueue<T>.Tail()
+        {
+            return Tail();
+        }
+
+        /// <summary>
+        /// Appends the specified element to the queue.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>
+        /// The queue with the specified element at the end.
+        /// </returns>
+        IQueue<T> IQueue<T>.Snoc(T element)
+        {
+            return Snoc(element);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

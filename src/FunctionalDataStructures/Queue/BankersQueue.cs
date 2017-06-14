@@ -79,7 +79,7 @@
         /// <returns>
         /// The tail of the queue.
         /// </returns>
-        public IQueue<T> Tail()
+        public BankersQueue<T> Tail()
         {
             if (this.front.IsEmpty())
             {
@@ -101,7 +101,7 @@
         /// <returns>
         /// The queue with the specified element at the end.
         /// </returns>
-        public IQueue<T> Snoc(T element)
+        public BankersQueue<T> Snoc(T element)
         {
             return new BankersQueue<T>(
                 this.frontLength, 
@@ -119,6 +119,29 @@
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns the tail of the queue.
+        /// </summary>
+        /// <returns>
+        /// The tail of the queue.
+        /// </returns>
+        IQueue<T> IQueue<T>.Tail()
+        {
+            return Tail();
+        }
+
+        /// <summary>
+        /// Appends the specified element to the queue.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>
+        /// The queue with the specified element at the end.
+        /// </returns>
+        IQueue<T> IQueue<T>.Snoc(T element)
+        {
+            return Snoc(element);
         }
 
         /// <summary>
