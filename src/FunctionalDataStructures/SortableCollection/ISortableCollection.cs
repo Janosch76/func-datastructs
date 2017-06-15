@@ -30,6 +30,10 @@
         /// <returns>A new collection where the given element is added.</returns>
         ISortableCollection<T> Add(T element);
 
+        /// <summary>
+        /// Sorts this collection.
+        /// </summary>
+        /// <returns>An enumeration in ascending order</returns>
         IEnumerable<T> Sort();
     }
 }

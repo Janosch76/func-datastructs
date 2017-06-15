@@ -54,9 +54,17 @@
         /// </returns>
         public BottomUpMergesort<T> Add(T element)
         {
-            throw new NotImplementedException();
+            var segment = List<T>.Empty.Cons(element);
+            var segments = new Susp<List<List<T>>>(() => AddSegment(segment, this.segments.Force(), this.size));
+            return new BottomUpMergesort<T>(this.size + 1, segments);
         }
 
+        /// <summary>
+        /// Sorts this collection.
+        /// </summary>
+        /// <returns>
+        /// An enumeration in ascending order
+        /// </returns>
         public System.Collections.Generic.IEnumerable<T> Sort()
         {
             var sorted = MergeAll(this.segments.Force());
@@ -142,6 +150,23 @@
                 var merged = Merge(xs, ys.Tail());
                 return merged.Cons(ys.Head());
             }
+        }
+
+        private static List<List<T>> AddSegment(List<T> segment, List<List<T>> segments, int segmentsSize)
+        {
+            if (IsEven(segmentsSize))
+            {
+                return segments.Cons(segment);
+            }
+            else
+            {
+                return AddSegment(Merge(segment, segments.Head()), segments.Tail(), segmentsSize / 2);
+                  }
+        }
+
+        private static bool IsEven(int size)
+        {
+            return size % 2 == 0;
         }
     }
 }

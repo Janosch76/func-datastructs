@@ -71,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Set\UnbalancedSetTests.cs" />
     <Compile Include="Set\RedBlackSetTests.cs" />
+    <Compile Include="SortableCollection\BottomUpMergesortTests.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="List\ListTests.cs" />
     <Compile Include="UnitTestAttribute.cs" />
@@ -86,9 +87,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SortableCollection\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
