@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="FiniteMap\AssociationList.cs" />
     <Compile Include="FiniteMap\Binding.cs" />
+    <Compile Include="FiniteMap\TrieOfTrees.cs" />
     <Compile Include="FiniteMap\UnbalancedAssociationTree.cs" />
     <Compile Include="FiniteMap\Trie.cs" />
     <Compile Include="Heap\HeapEnumerator.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Set\UnbalancedSet.cs" />
     <Compile Include="SortableCollection\BottomUpMergesort.cs" />
     <Compile Include="SortableCollection\ISortableCollection.cs" />
+    <Compile Include="Utils\BinaryTree.cs" />
     <Compile Include="Utils\ISusp.cs" />
     <Compile Include="List\IList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
