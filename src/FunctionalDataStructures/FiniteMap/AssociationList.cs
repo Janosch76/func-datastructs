@@ -1,7 +1,7 @@
 ﻿namespace FunctionalDataStructures.FiniteMap
 {
     using System;
-    using FunctionalDataStructures.Set;
+    using FunctionalDataStructures.List;
 
     /// <summary>
     /// Implementation of functional finite maps using association lists
@@ -9,20 +9,20 @@
     /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="T">The element type</typeparam>
     public class AssociationList<TKey, T> : IFiniteMap<TKey, T>
-        where TKey : IComparable<TKey>
+        where TKey : IEquatable<TKey>
     {
         /// <summary>
         /// The empty map.
         /// </summary>
-        public static readonly AssociationList<TKey, T> Empty = new AssociationList<TKey, T>(OrderedListSet<Binding<TKey, T>>.Empty);
+        public static readonly AssociationList<TKey, T> Empty = new AssociationList<TKey, T>(List<Binding<TKey, T>>.Empty);
 
-        private OrderedListSet<Binding<TKey, T>> associations;
+        private List<Binding<TKey, T>> associations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssociationList{TKey, T}"/> class.
         /// </summary>
         /// <param name="associations">The associations.</param>
-        private AssociationList(OrderedListSet<Binding<TKey, T>> associations)
+        private AssociationList(List<Binding<TKey, T>> associations)
         {
             this.associations = associations;
             Count = associations.Count;
@@ -68,7 +68,7 @@
         public AssociationList<TKey, T> Bind(TKey key, T value)
         {
             var binding = new Binding<TKey, T>(key, value);
-            return new AssociationList<TKey, T>(this.associations.Insert(binding));
+            return new AssociationList<TKey, T>(this.associations.Where(b => !b.Key.Equals(key)).Cons(binding));
         }
 
         /// <summary>
@@ -80,7 +80,7 @@
         /// </returns>
         public T Lookup(TKey key)
         {
-            var binding = this.associations.Find(b => b.Key.CompareTo(key) == 0);
+            var binding = this.associations.Find(b => b.Key.Equals(key));
             return binding.Value;
         }
 

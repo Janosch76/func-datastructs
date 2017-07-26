@@ -109,6 +109,13 @@
         public abstract T Find(Func<T, bool> predicate);
 
         /// <summary>
+        /// Returns the sublist of elements satisfying a given filter condition.
+        /// </summary>
+        /// <param name="condition">The condition.</param>
+        /// <returns>Returns the sublist of elements satisfying the given condition.</returns>
+        public abstract List<T> Where(Predicate<T> condition);
+
+        /// <summary>
         /// Reverses this list instance.
         /// </summary>
         /// <returns>The reversed list.</returns>
@@ -116,13 +123,6 @@
         {
             return Reverse(Empty);
         }
-
-        /// <summary>
-        /// Reverses this list instance.
-        /// </summary>
-        /// <param name="reversed">Accumulator argument.</param>
-        /// <returns>The reversed list.</returns>
-        protected abstract List<T> Reverse(List<T> reversed);
 
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
@@ -145,6 +145,13 @@
         {
             return new ListEnumerator<T>(this);
         }
+
+        /// <summary>
+        /// Reverses this list instance.
+        /// </summary>
+        /// <param name="reversed">Accumulator argument.</param>
+        /// <returns>The reversed list.</returns>
+        protected abstract List<T> Reverse(List<T> reversed);
 
         /// <summary>
         /// Represents the empty list
@@ -179,6 +186,11 @@
             public override T Find(Func<T, bool> predicate)
             {
                 throw new NotFoundException();
+            }
+
+            public override List<T> Where(Predicate<T> condition)
+            {
+                return List<T>.Empty;
             }
 
             protected override List<T> Reverse(List<T> reversed)
@@ -232,6 +244,19 @@
                 else
                 {
                     return this.tail.Find(predicate);
+                }
+            }
+
+            public override List<T> Where(Predicate<T> condition)
+            {
+                var tail = this.tail.Where(condition);
+                if (condition(this.head))
+                {
+                    return tail.Cons(this.head);
+                }
+                else
+                {
+                    return tail;
                 }
             }
 

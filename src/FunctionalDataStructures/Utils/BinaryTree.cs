@@ -6,7 +6,8 @@
     /// Minimalist binary tree implementation.
     /// </summary>
     /// <typeparam name="T">The element type</typeparam>
-    public abstract class BinaryTree<T> : IComparable<BinaryTree<T>>
+    public abstract class BinaryTree<T> : IEquatable<BinaryTree<T>>
+        where T : IEquatable<T>
     {
         /// <summary>
         /// The empty binary tree.
@@ -34,23 +35,20 @@
         /// <param name="element">The root element.</param>
         /// <param name="left">The left subtree.</param>
         /// <param name="right">The right subtree.</param>
-        /// <returns></returns>
+        /// <returns>A non-empty tree</returns>
         public static BinaryTree<T> MakeTree(T element, BinaryTree<T> left, BinaryTree<T> right)
         {
             return new Node(element, left, right);
         }
 
         /// <summary>
-        /// Compares the current object with another object of the same type.
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.
+        /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
         /// </returns>
-        public int CompareTo(BinaryTree<T> other)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract bool Equals(BinaryTree<T> other);
 
         /// <summary>
         /// Determines whether this instance is empty.
@@ -80,6 +78,11 @@
             public override bool IsEmpty()
             {
                 return true;
+            }
+
+            public override bool Equals(BinaryTree<T> other)
+            {
+                return other is EmptyTree;
             }
         }
 
@@ -114,6 +117,19 @@
             public override bool IsEmpty()
             {
                 return false;
+            }
+
+            public override bool Equals(BinaryTree<T> other)
+            {
+                var otherNode = other as Node;
+                if (otherNode == null)
+                {
+                    return false;
+                }
+
+                return this.element.Equals(otherNode.Element)
+                    && this.left.Equals(otherNode.Left)
+                    && this.right.Equals(otherNode.right);
             }
         }
     }

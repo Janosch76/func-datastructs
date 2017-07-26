@@ -27,7 +27,7 @@
             this.node = value;
             this.edges = edges;
 
-            Count = (node.HasValue ? 1 : 0);
+            Count = node.HasValue ? 1 : 0;
             foreach (var edge in edges)
             {
                 var subtrie = edge.Value;
@@ -123,18 +123,6 @@
             }
         }
 
-        private Trie<T> TryGetSubtrie(char k)
-        {
-            try
-            {
-                return this.edges.Lookup(k);
-            }
-            catch (NotFoundException)
-            {
-                return Empty;
-            }
-        }
-
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
@@ -167,6 +155,18 @@
                 {
                     yield return new Binding<string, T>(k + binding.Key, binding.Value);
                 }
+            }
+        }
+
+        private Trie<T> TryGetSubtrie(char k)
+        {
+            try
+            {
+                return this.edges.Lookup(k);
+            }
+            catch (NotFoundException)
+            {
+                return Empty;
             }
         }
     }

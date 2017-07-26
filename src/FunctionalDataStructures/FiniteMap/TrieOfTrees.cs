@@ -9,7 +9,7 @@
     /// <typeparam name="TKey">The key element type</typeparam>
     /// <typeparam name="T">The element type</typeparam>
     public class TrieOfTrees<TKey, T> : IFiniteMap<BinaryTree<TKey>, T>
-        where TKey : IComparable<TKey>
+        where TKey : IEquatable<TKey>
     {
         /// <summary>
         /// The empty trie.
@@ -29,7 +29,7 @@
             this.node = node;
             this.edges = edges;
 
-            Count = (node.HasValue ? 1 : 0);
+            Count = node.HasValue ? 1 : 0;
             foreach (var edge in edges)
             {
                 var subtrie = edge.Value;
@@ -84,7 +84,6 @@
             }
         }
 
-
         /// <summary>
         /// Adds a new key-value binding to the dictionary.
         /// </summary>
@@ -131,30 +130,6 @@
             }
         }
 
-        private TrieOfTrees<TKey, T> TryGetSubtrie(TrieOfTrees<TKey, TrieOfTrees<TKey, T>> t, BinaryTree<TKey> left)
-        {
-            try
-            {
-                return t.Lookup(left);
-            }
-            catch (NotFoundException)
-            {
-                return TrieOfTrees<TKey, T>.Empty;
-            }
-        }
-
-        private TrieOfTrees<TKey, TrieOfTrees<TKey, T>> TryGetSubtrie(TKey k)
-        {
-            try
-            {
-                return this.edges.Lookup(k);
-            }
-            catch (NotFoundException)
-            {
-                return TrieOfTrees<TKey, TrieOfTrees<TKey, T>>.Empty;
-            }
-        }
-
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
@@ -191,6 +166,30 @@
                             subtrie2.Value);
                     }
                 }
+            }
+        }
+
+        private TrieOfTrees<TKey, T> TryGetSubtrie(TrieOfTrees<TKey, TrieOfTrees<TKey, T>> t, BinaryTree<TKey> left)
+        {
+            try
+            {
+                return t.Lookup(left);
+            }
+            catch (NotFoundException)
+            {
+                return TrieOfTrees<TKey, T>.Empty;
+            }
+        }
+
+        private TrieOfTrees<TKey, TrieOfTrees<TKey, T>> TryGetSubtrie(TKey k)
+        {
+            try
+            {
+                return this.edges.Lookup(k);
+            }
+            catch (NotFoundException)
+            {
+                return TrieOfTrees<TKey, TrieOfTrees<TKey, T>>.Empty;
             }
         }
     }

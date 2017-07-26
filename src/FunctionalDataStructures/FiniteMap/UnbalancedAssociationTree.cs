@@ -10,19 +10,19 @@
     /// <typeparam name="T">The element type</typeparam>
     public class UnbalancedAssociationTree<TKey, T> : IFiniteMap<TKey, T>
         where TKey : IComparable<TKey>
-    {
+    { 
         /// <summary>
         /// The empty map.
         /// </summary>
-        public static readonly UnbalancedAssociationTree<TKey, T> Empty = new UnbalancedAssociationTree<TKey, T>(UnbalancedSet<Binding<TKey, T>>.Empty);
+        public static readonly UnbalancedAssociationTree<TKey, T> Empty = new UnbalancedAssociationTree<TKey, T>(UnbalancedSet<ComparableBinding>.Empty);
 
-        private readonly UnbalancedSet<Binding<TKey, T>> associations;
+        private readonly UnbalancedSet<ComparableBinding> associations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UnbalancedAssociationTree{TKey, T}"/> class.
         /// </summary>
         /// <param name="associations">The key-value bindings.</param>
-        private UnbalancedAssociationTree(UnbalancedSet<Binding<TKey, T>> associations)
+        private UnbalancedAssociationTree(UnbalancedSet<ComparableBinding> associations)
         {
             this.associations = associations;
         }
@@ -69,7 +69,7 @@
         /// </returns>
         public UnbalancedAssociationTree<TKey, T> Bind(TKey key, T value)
         {
-            var binding = new Binding<TKey, T>(key, value);
+            var binding = new ComparableBinding(key, value);
             return new UnbalancedAssociationTree<TKey, T>(this.associations.Insert(binding));
         }
 
@@ -106,6 +106,32 @@
         public System.Collections.Generic.IEnumerator<Binding<TKey, T>> GetEnumerator()
         {
             return this.associations.GetEnumerator();
+        }
+
+        private class ComparableBinding : Binding<TKey, T>, IComparable<ComparableBinding>
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ComparableBinding"/> class.
+            /// </summary>
+            /// <param name="key">The key.</param>
+            /// <param name="value">The value.</param>
+            public ComparableBinding(TKey key, T value)
+                : base(key, value)
+            {
+            }
+
+            /// <summary>
+            /// Compares this instance to another instance.
+            /// </summary>
+            /// <param name="other">The other instance.</param>
+            /// <returns>
+            /// Returns a value indicating the relative order of this
+            /// instance and the given other instance
+            /// </returns>
+            public int CompareTo(ComparableBinding other)
+            {
+                return Key.CompareTo(other.Key);
+            }
         }
     }
 }

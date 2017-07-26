@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FiniteMap\AssociationListTests.cs" />
+    <Compile Include="FiniteMap\TrieOfTreesTests.cs" />
     <Compile Include="FiniteMap\TrieTests.cs" />
     <Compile Include="FiniteMap\UnbalancedAssociationTreeTests.cs" />
     <Compile Include="Heap\LazyBinomialHeapTests.cs" />

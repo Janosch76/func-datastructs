@@ -30,11 +30,11 @@
         /// <summary>
         /// Gets the element with the specified index.
         /// </summary>
-        /// <param name="i">The index.</param>
+        /// <param name="index">The index.</param>
         /// <returns>
         /// The element with the specified index.
         /// </returns>
-        public abstract T this[int i] { get; }
+        public abstract T this[int index] { get; }
 
         /// <summary>
         /// Determines whether this instance is empty.
@@ -96,27 +96,27 @@
         /// <summary>
         /// Updates the element at the specified index.
         /// </summary>
-        /// <param name="i">The index.</param>
+        /// <param name="index">The index.</param>
         /// <param name="value">The value.</param>
         /// <returns>
         /// The updated list.
         /// </returns>
-        IRandomAccessList<T> IRandomAccessList<T>.Update(int i, T value)
+        IRandomAccessList<T> IRandomAccessList<T>.Update(int index, T value)
         {
-            return Update(i, value);
+            return Update(index, value);
         }
 
         /// <summary>
         /// Updates the element at the specified index.
         /// </summary>
-        /// <param name="i">The index.</param>
+        /// <param name="index">The index.</param>
         /// <param name="value">The value.</param>
         /// <returns>
         /// The updated list.
         /// </returns>
-        public BinaryRandomAccessList<T> Update(int i, T value)
+        public BinaryRandomAccessList<T> Update(int index, T value)
         {
-            return this.Update(i, elem => value);
+            return this.Update(index, elem => value);
         }
 
         /// <summary>
@@ -185,19 +185,19 @@
         /// <summary>
         /// Updates the element at the specified index.
         /// </summary>
-        /// <param name="i">The index.</param>
+        /// <param name="index">The index.</param>
         /// <param name="f">The subtree to replace.</param>
         /// <returns>
         /// The updated list.
         /// </returns>
-        protected abstract BinaryRandomAccessList<T> Update(int i, Func<T, T> f);
+        protected abstract BinaryRandomAccessList<T> Update(int index, Func<T, T> f);
 
         /// <summary>
         /// Represents an empty collection
         /// </summary>
         private class Nil : BinaryRandomAccessList<T>
         {
-            public override T this[int i]
+            public override T this[int index]
             {
                 get { throw new IndexOutOfRangeException(); }
             }
@@ -212,7 +212,7 @@
                 throw new EmptyCollectionException();
             }
 
-            protected override BinaryRandomAccessList<T> Update(int i, Func<T, T> f)
+            protected override BinaryRandomAccessList<T> Update(int index, Func<T, T> f)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -231,12 +231,12 @@
                 Count = 2 * next.Count;
             }
 
-            public override T this[int i]
+            public override T this[int index]
             {
                 get
                 {
-                    var p = this.next[i / 2];
-                    return IsEven(i) ? p.Item1 : p.Item2;
+                    var p = this.next[index / 2];
+                    return IsEven(index) ? p.Item1 : p.Item2;
                 }
             }
 
@@ -254,11 +254,11 @@
                 return Tuple.Create(heads.Item1, list);
             }
 
-            protected override BinaryRandomAccessList<T> Update(int i, Func<T, T> f)
+            protected override BinaryRandomAccessList<T> Update(int index, Func<T, T> f)
             {
                 return new Zero(this.next.Update(
-                    i / 2,
-                    p => IsEven(i) ? Tuple.Create(f(p.Item1), p.Item2) : Tuple.Create(p.Item1, f(p.Item2))));
+                    index / 2,
+                    p => IsEven(index) ? Tuple.Create(f(p.Item1), p.Item2) : Tuple.Create(p.Item1, f(p.Item2))));
             }
 
             private static bool IsEven(int i)
@@ -282,17 +282,17 @@
                 Count = (2 * next.Count) + 1;
             }
 
-            public override T this[int i]
+            public override T this[int index]
             {
                 get
                 {
-                    if (i == 0)
+                    if (index == 0)
                     {
                         return this.elem;
                     }
                     else
                     {
-                        return new Zero(this.next)[i - 1];
+                        return new Zero(this.next)[index - 1];
                     }
                 }
             }
@@ -315,15 +315,15 @@
                 }
             }
 
-            protected override BinaryRandomAccessList<T> Update(int i, Func<T, T> f)
+            protected override BinaryRandomAccessList<T> Update(int index, Func<T, T> f)
             {
-                if (i == 0)
+                if (index == 0)
                 {
                     return new One(f(this.elem), this.next);
                 }
                 else
                 {
-                    return new Zero(this.next).Update(i - 1, f).Cons(this.elem);
+                    return new Zero(this.next).Update(index - 1, f).Cons(this.elem);
                 }
             }
         }

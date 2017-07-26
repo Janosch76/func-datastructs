@@ -81,7 +81,7 @@
             var map = empty.Bind("key1", 1).Bind("key2", 2).Bind("key3", 3);
 
             AssertThrows<NotFoundException>(() =>
-                empty.Lookup("invalidKey"));
+                map.Lookup("invalidKey"));
         }
     }
 }
